@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Nginx Service
+  nginx:
+    image: nginx:latest
+    container_name: my_nginx_php
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx-config:/etc/nginx/conf.d
+    ports:
+      - "8080:80"
+    depends_on:
+      - php-fpm
+
+  # PHP-FPM Service
+  php-fpm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my_php_fpm
+    volumes:
+      - ./src:/var/www/html
+      - ./php/:/usr/local/etc/php/conf.d/
+    depends_on:
+      - mysql
+
+  # MySQL Service
+  mysql:
+    image: mysql:8
+    container_name: my_mysql
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_DATABASE: your_database
+      MYSQL_USER: your_user
+      MYSQL_PASSWORD: your_password
+      MYSQL_ROOT_HOST: '%'  # needs to be enclosed with quotes

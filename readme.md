@@ -1,0 +1,41 @@
+# Docker Compose Setup
+
+This repository contains a Docker Compose setup with Nginx, PHP-FPM, and MySQL.
+
+## Getting Started
+
+### Prerequisites
+
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+### Running the Application
+
+```bash
+git clone https://github.com/your-username/your-repository.git
+cd your-repository
+docker-compose up
+
+# Access the application:
+# Nginx: http://localhost:8080
+# PHP info: http://localhost:8080/phpinfo.php
+```
+
+### troueboeshoot
+
+```bash
+docker-compose logs -f my_mysql  # Wait for MySQL to be ready
+
+### delete everything and start again
+docker-compose down
+rm -rf mysql_data
+``` 
+
+### Additional Notes
+
+Nginx serves files from the ./src/ directory.
+Customize PHP configuration in ./php/php.ini.
+Adjust Nginx configuration in the ./nginx-config directory.
+mysql-init script in the ./mysq-init directory.
+mysql data script in the ./mysql_data directory.
+build custome php-fpm in the ./Dockerfile

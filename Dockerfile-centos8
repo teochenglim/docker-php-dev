@@ -1,0 +1,54 @@
+FROM centos:8
+
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+RUN yum update -y
+
+ENV PHP_VERSION=8.1
+ENV LANG=C.UTF-8
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+RUN yum install -y openssl-devel gcc-c++ make autoconf zip unzip git lsof telnet vim wget libpq \
+    && dnf module reset php \
+    && dnf install epel-release -y \
+    && dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y \
+    && wget http://rpms.famillecollet.com/enterprise/remi-release-8.rpm \
+    && rpm -ivh remi-release-8.rpm --nodeps --force \
+    && yes y|dnf module enable php:remi-${PHP_VERSION} -y 
+
+RUN yum install /usr/include/libpq-fe.h -y
+RUN dnf install -y php php-devel \
+    libmemcached \
+    php-pecl-rdkafka \
+    php-pecl-apcu \
+    php-posix \
+    php-pcntl \
+    php-gd \
+    php-dba \
+    php-gmp \
+    php-intl \
+    php-ldap \
+    php-odbc \
+    php-soap \
+    php-tidy \
+    php-pecl-zip \
+    php-bcmath \
+    php-ast \
+    php-pecl-amqp \
+    php-pecl-mongodb \
+    php-pecl-imagick \
+    php-pecl-protobuf \
+    php-pecl-memcached \
+    php-pecl-memcache \
+    php-openssl \
+    php-json \
+    php-mysqlnd \
+    php-sockets \
+    php-fpm \
+    php-mbstring \
+    boost \
+    boost-devel \
+    && yum clean all
+
+ENTRYPOINT ["/usr/sbin/init"]
