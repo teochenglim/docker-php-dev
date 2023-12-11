@@ -33,9 +33,9 @@ rm -rf mysql_data
 
 ### Additional Notes
 
-Nginx serves files from the ./src/ directory.
-Customize PHP configuration in ./php/php.ini.
-Adjust Nginx configuration in the ./nginx-config directory.
-mysql-init script in the ./mysq-init directory.
-mysql data script in the ./mysql_data directory.
-build custome php-fpm in the ./Dockerfile
+- Nginx serves files from the `./src/` directory.
+- Customize PHP configuration in `./php/php.ini`.
+- Adjust Nginx configuration in the `./nginx-config` directory.
+- MySQL initialization script is located in the `./mysql-init` directory.
+- MySQL data scripts are stored in the `./mysql_data` directory.
+- Build custom PHP-FPM using the `./Dockerfile`.
