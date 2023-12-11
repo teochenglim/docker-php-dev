@@ -39,3 +39,10 @@ rm -rf mysql_data
 - MySQL initialization script is located in the `./mysql-init` directory.
 - MySQL data scripts are stored in the `./mysql_data` directory.
 - Build custom PHP-FPM using the `./Dockerfile`.
+
+### debian install netstat and ps
+
+```shell
+apt-get update && apt-get install procps net-tools -y
+
+```
